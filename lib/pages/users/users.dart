@@ -8,6 +8,8 @@ import 'package:smapleespad/pages/users/addUsers.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:smapleespad/pages/users/editUsers.dart';
 import 'checkUsers.dart';
+import 'package:smapleespad/images/images.dart';
+
 //==============================================================================
 
 class Users extends StatefulWidget {
@@ -26,6 +28,7 @@ class _UsersState extends State<Users> {
   List updateItems = [];
   String itemsUser = '';
   bool showBtn = false;
+  String logo=Images().logo;
 
   @override
   void initState() {
@@ -48,9 +51,9 @@ class _UsersState extends State<Users> {
             child: Row(
               children: [
                 Container(
-                  child: Image.asset(
-                    'assets/images/logo-espad.png',
-                    height: 20,
+                  child: Image.memory(
+                    base64.decode(logo),
+                    height: 25,
                   ),
                 ),
                 SizedBox(
