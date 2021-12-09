@@ -369,7 +369,7 @@ class _CheckUsersState extends State<CheckUsers> {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
-                        width: 70,
+                        width: 50,
                       ),
                    Container(
                             width: 130,
