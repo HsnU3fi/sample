@@ -7,6 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:espad/images/images.dart';
 import 'package:espad/pages/users/users.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:intl/intl.dart';
 
 //==============================================================================
 class AddUsers extends StatefulWidget {
@@ -25,6 +27,7 @@ class _AddUsersState extends State<AddUsers> {
   List userIdList = [];
   String image = Images().imgdefault;
   late Uint8List bytes;
+  final format = DateFormat("yyyy/MM/dd");
 
   @override
   initState() {
@@ -206,31 +209,38 @@ class _AddUsersState extends State<AddUsers> {
                     Text(
                       "Birth date :",
                       style: TextStyle(fontWeight: FontWeight.bold),
+
                     ),
-                    Container(
-                      child: Flexible(
-                        child: Container(
-                          height: 60,
-                          padding: EdgeInsets.fromLTRB(60, 15, 0, 0),
-                          child: TextField(
-                            keyboardType: TextInputType.number,
-                            onChanged: (value) {
-                              birthDate = value;
-                            },
-                            textAlign: TextAlign.center,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white,
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              ),
-                            ),
+                    SizedBox(width: 65,),
+                    Flexible(
+                        child: RaisedButton(
+                          // padding: EdgeInsets.fromLTRB(90, 15, 0, 0),
+
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(10)),
+                            side:BorderSide(
+                                width: 1,
+                                color: Colors.black
+                            )
+
                           ),
-                        ),
-                      ), //flexible
-                    ), //container
+                      onPressed: () {},
+                      child: DateTimeField(
+                          format: format,
+                          onChanged: (value) {
+                            birthDate = value.toString();
+                          },
+                          onShowPicker: (context, currentValue) {
+                            return showDatePicker(
+                                context: context,
+                                firstDate: DateTime(1900),
+                                initialDate: currentValue ?? DateTime.now(),
+                                lastDate: DateTime(2100));
+                          }),
+                    )
+                    ), //f
                   ], //widget
                 ),
               ),
@@ -402,6 +412,7 @@ class _AddUsersState extends State<AddUsers> {
       });
     }
   }
+
 //=============================VALIDATION=======================================
 // if (dataUsers.isEmpty) {
   //   _createUser();
@@ -418,10 +429,10 @@ class _AddUsersState extends State<AddUsers> {
 
 //==============================================================================
   void _dataValidation() async {
+
     if (name.isNotEmpty &&
         familyName.isNotEmpty &&
         address.isNotEmpty &&
-        birthDate.isNotEmpty &&
         iDNo.isNotEmpty &&
         mobile.isNotEmpty) {
       _createUser();
@@ -432,13 +443,14 @@ class _AddUsersState extends State<AddUsers> {
 
 //==============================================================================
   void _createUser() async {
-    print(dataUsers);
+    print("format");
+    print(format);
     Map data = {
       "ID": getRandomString(10),
       "name": name,
       "family_name": familyName,
       "address": address,
-      "birth_date": birthDate,
+      "birth_date": birthDate.substring(0,10),
       "mobile": mobile,
       "id_no": iDNo,
       "image": image,
