@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smapleespad/images/images.dart';
 import 'package:smapleespad/pages/users/users.dart';
-import 'dart:io' as Io;
 
 
 //==============================================================================
@@ -18,6 +17,7 @@ class Splash extends StatefulWidget {
 
 class _SplashState extends State<Splash> {
   List dataUsers = [];
+  String image = Images().logo;
 
   @override
   void initState() {
@@ -50,8 +50,8 @@ class _SplashState extends State<Splash> {
                 height: 100,
               ),
               Container(
-                child: Image.asset(
-                  'assets/images/logo-espad.png',
+                child: Image.memory(
+                  base64.decode(image),
                   height: 100,
                 ),
               ),

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:smapleespad/images/images.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smapleespad/pages/users/users.dart';
 //==============================================================================
@@ -396,7 +396,7 @@ class _CheckUsersState extends State<CheckUsers> {
                               icon: Icon(Icons.cancel),
                               onPressed: () {
                                 setState(() {
-                                  getItem['image'] = "";
+                                  getItem['image'] = Images().imgdefault;
                                 });
                               }),
                           IconButton(

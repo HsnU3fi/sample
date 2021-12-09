@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,7 +24,6 @@ class _AddUsersState extends State<AddUsers> {
   List dataUsers = [];
   List userIdList = [];
   String image = Images().imgdefault;
-  var imageeeeee;
   late Uint8List bytes;
 
   @override

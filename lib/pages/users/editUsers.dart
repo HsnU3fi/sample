@@ -19,7 +19,7 @@ class EditUsers extends StatefulWidget {
 
 class _EditUsersState extends State<EditUsers> {
   var getItem;
-  List items=[];
+  List items = [];
 
   String name = '';
   String familyName = '';
@@ -28,7 +28,7 @@ class _EditUsersState extends State<EditUsers> {
   String address = '';
   String birthDate = '';
   String image = '';
-  String image1 = '';
+  String imageNew = '';
   List dataUsers = [];
   List userIdList = [];
 
@@ -394,8 +394,6 @@ class _EditUsersState extends State<EditUsers> {
       });
       for (var items in decode) {
         if (items['ID'] == widget.itemsUsers) {
-          print("items");
-          print(items);
           setState(() {
             getItem = items;
             name = getItem['name'];
@@ -410,9 +408,9 @@ class _EditUsersState extends State<EditUsers> {
       }
     }
   }
+
 //==============================================================================
   void _choose() async {
-
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(
       source: ImageSource.gallery,
@@ -458,20 +456,19 @@ class _EditUsersState extends State<EditUsers> {
 
 //==============================================================================
   void _editUser() async {
-
-    var dataUsers=[];
-    for(var i in items){
+    var dataUsers = [];
+    for (var i in items) {
       print(i);
-      if(i["ID"]==getItem["ID"]){
+      if (i["ID"] == getItem["ID"]) {
         setState(() {
-          i=getItem;
-          name = getItem['name'];
-          familyName = getItem['family_name'];
-          mobile = getItem['mobile'];
-          iDNo = getItem['id_no'];
-          address = getItem['address'];
-          birthDate = getItem['birth_date'];
-          image = image1;
+          i = getItem;
+          getItem['name'] = name;
+          getItem['family_name'] = familyName;
+          getItem['mobile'] = mobile;
+          getItem['id_no'] = iDNo;
+          getItem['address'] = address;
+          getItem['birth_date'] = birthDate;
+          getItem["image"] = image;
         });
       }
       dataUsers.add(i);
@@ -494,6 +491,7 @@ class _EditUsersState extends State<EditUsers> {
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
+
 //==============================================================================
   void _showSnackBarSuccess(BuildContext context) {
     final snackBar = SnackBar(
