@@ -284,7 +284,7 @@ class _AddUsersState extends State<AddUsers> {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
-                      width: 70,
+                      width: 60,
                     ),
                     InkWell(
                       child: Container(
@@ -299,8 +299,8 @@ class _AddUsersState extends State<AddUsers> {
                           child: Image.memory(
                             base64.decode(image),
                             fit: BoxFit.fill,
-                            height: 150,
-                            width: 120,
+                            height: 180,
+                            width: 130,
                           )),
                       onTap: _choose,
                     ),
@@ -390,8 +390,8 @@ class _AddUsersState extends State<AddUsers> {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(
       source: ImageSource.gallery,
-      maxHeight: 50,
-      maxWidth: 50,
+      maxHeight: 180,
+      maxWidth: 130,
     );
 
     if (pickedFile != null) {

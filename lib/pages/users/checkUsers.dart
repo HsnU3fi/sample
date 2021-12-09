@@ -372,8 +372,8 @@ class _CheckUsersState extends State<CheckUsers> {
                         width: 70,
                       ),
                    Container(
-                            width: 110,
-                            height: 150,
+                            width: 130,
+                            height: 180,
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 border: Border.all(

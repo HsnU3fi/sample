@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -311,8 +310,8 @@ class _EditUsersState extends State<EditUsers> {
                           child: Image.memory(
                             base64.decode(image),
                             fit: BoxFit.fill,
-                            height: 150,
-                            width: 120,
+                            height: 180,
+                            width: 130,
                           )),
                       onTap: _choose,
                     ),
@@ -414,8 +413,8 @@ class _EditUsersState extends State<EditUsers> {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(
       source: ImageSource.gallery,
-      maxHeight: 50.0,
-      maxWidth: 50.0,
+      maxHeight: 180,
+      maxWidth: 130,
     );
     if (pickedFile != null) {
       final imageBytes = await pickedFile.readAsBytes();
