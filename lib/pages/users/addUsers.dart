@@ -27,7 +27,7 @@ class _AddUsersState extends State<AddUsers> {
   List userIdList = [];
   String image = Images().imgdefault;
   late Uint8List bytes;
-  final format = DateFormat("yyyy/MM/dd");
+  final format = DateFormat("yyyy-MM-dd");
 
   @override
   initState() {

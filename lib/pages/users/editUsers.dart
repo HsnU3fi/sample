@@ -5,6 +5,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:espad/pages/users/users.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:intl/intl.dart';
 
 //==============================================================================
 class EditUsers extends StatefulWidget {
@@ -19,7 +21,6 @@ class EditUsers extends StatefulWidget {
 class _EditUsersState extends State<EditUsers> {
   var getItem;
   List items = [];
-
   String name = '';
   String familyName = '';
   String mobile = '';
@@ -30,6 +31,8 @@ class _EditUsersState extends State<EditUsers> {
   String imageNew = '';
   List dataUsers = [];
   List userIdList = [];
+  final format = DateFormat("yyyy-MM-dd");
+
 
   @override
   initState() {
@@ -207,6 +210,8 @@ class _EditUsersState extends State<EditUsers> {
                   ], //widget
                 ),
               ),
+
+
               Container(
                 padding: EdgeInsets.fromLTRB(30, 30, 30, 0),
                 child: Row(
@@ -215,32 +220,39 @@ class _EditUsersState extends State<EditUsers> {
                     Text(
                       "Birth date :",
                       style: TextStyle(fontWeight: FontWeight.bold),
+
                     ),
-                    Container(
-                      child: Flexible(
-                        child: Container(
-                          height: 60,
-                          padding: EdgeInsets.fromLTRB(60, 15, 0, 0),
-                          child: TextField(
-                            controller: TextEditingController(text: birthDate),
-                            keyboardType: TextInputType.number,
-                            onChanged: (value) {
-                              birthDate = value;
-                            },
-                            textAlign: TextAlign.center,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white,
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              ),
-                            ),
+                    SizedBox(width: 65,),
+                    Flexible(
+                        child: RaisedButton(
+                          // padding: EdgeInsets.fromLTRB(90, 15, 0, 0),
+
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(10)),
+                              side:BorderSide(
+                                  width: 1,
+                                  color: Colors.black
+                              )
+
                           ),
-                        ),
-                      ), //flexible
-                    ), //container
+                          onPressed: () {},
+                          child: DateTimeField(
+                            controller: TextEditingController(text: birthDate.substring(0,10)),
+                              format: format,
+                              onChanged: (value) {
+                                birthDate = value.toString().substring(0,10);
+                              },
+                              onShowPicker: (context, currentValue) {
+                                return showDatePicker(
+                                    context: context,
+                                    firstDate: DateTime(1900),
+                                    initialDate: currentValue ?? DateTime.now(),
+                                    lastDate: DateTime(2100));
+                              }),
+                        )
+                    ), //f
                   ], //widget
                 ),
               ),
