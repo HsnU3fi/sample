@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smapleespad/pages/spalsh/spalsh.dart';
+import 'package:espad/pages/spalsh/spalsh.dart';
 
 //==============================================================================
 

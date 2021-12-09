@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:smapleespad/images/images.dart';
-import 'package:smapleespad/pages/users/users.dart';
+import 'package:espad/images/images.dart';
+import 'package:espad/pages/users/users.dart';
 
 
 //==============================================================================
