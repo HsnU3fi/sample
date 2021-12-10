@@ -33,7 +33,6 @@ class _EditUsersState extends State<EditUsers> {
   List userIdList = [];
   final format = DateFormat("yyyy-MM-dd");
 
-
   @override
   initState() {
     _getItemUser();
@@ -45,6 +44,7 @@ class _EditUsersState extends State<EditUsers> {
       backgroundColor: Color.fromRGBO(241, 241, 241, 1),
       appBar: AppBar(
         backgroundColor: Colors.black,
+        automaticallyImplyLeading: false,
         title: Text(
           "Espad",
           style: GoogleFonts.pacifico(
@@ -52,11 +52,6 @@ class _EditUsersState extends State<EditUsers> {
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
-        ),
-        leading: IconButton(
-          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-          icon: Icon(Icons.arrow_back_ios, size: 30, color: Colors.black),
-          onPressed: _users,
         ),
       ),
       body: Center(
@@ -81,7 +76,7 @@ class _EditUsersState extends State<EditUsers> {
                           child: TextField(
                             controller: TextEditingController(text: name),
                             onChanged: (value) {
-                              getItem['name'] = value;
+                              name = value;
                             },
                             textAlign: TextAlign.center,
                             decoration: InputDecoration(
@@ -192,6 +187,7 @@ class _EditUsersState extends State<EditUsers> {
                             keyboardType: TextInputType.number,
                             onChanged: (value) {
                               iDNo = value;
+                              print(value);
                             },
                             textAlign: TextAlign.center,
                             decoration: InputDecoration(
@@ -210,8 +206,6 @@ class _EditUsersState extends State<EditUsers> {
                   ], //widget
                 ),
               ),
-
-
               Container(
                 padding: EdgeInsets.fromLTRB(30, 30, 30, 0),
                 child: Row(
@@ -220,39 +214,36 @@ class _EditUsersState extends State<EditUsers> {
                     Text(
                       "Birth date :",
                       style: TextStyle(fontWeight: FontWeight.bold),
-
                     ),
-                    SizedBox(width: 65,),
+                    SizedBox(
+                      width: 65,
+                    ),
                     Flexible(
                         child: RaisedButton(
-                          // padding: EdgeInsets.fromLTRB(90, 15, 0, 0),
-
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10)),
-                              side:BorderSide(
-                                  width: 1,
-                                  color: Colors.black
-                              )
-
-                          ),
-                          onPressed: () {},
-                          child: DateTimeField(
-                            controller: TextEditingController(text: birthDate.substring(0,10)),
-                              format: format,
-                              onChanged: (value) {
-                                birthDate = value.toString().substring(0,10);
-                              },
-                              onShowPicker: (context, currentValue) {
-                                return showDatePicker(
-                                    context: context,
-                                    firstDate: DateTime(1900),
-                                    initialDate: currentValue ?? DateTime.now(),
-                                    lastDate: DateTime(2100));
-                              }),
-                        )
-                    ), //f
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          side: BorderSide(width: 1, color: Colors.black)),
+                      onPressed: () {},
+                      child: DateTimeField(
+                          textAlign: TextAlign.center,
+                          controller: TextEditingController(text: birthDate),
+                          format: format,
+                          onChanged: (value) {
+                            if (value == null) {
+                              birthDate = '';
+                            } else {
+                              birthDate = value.toString().substring(0, 10);
+                            }
+                          },
+                          onShowPicker: (context, currentValue) {
+                            return showDatePicker(
+                                context: context,
+                                firstDate: DateTime(1900),
+                                initialDate: currentValue ?? DateTime.now(),
+                                lastDate: DateTime(2100));
+                          }),
+                    )), //f
                   ], //widget
                 ),
               ),
@@ -371,7 +362,7 @@ class _EditUsersState extends State<EditUsers> {
                         shape: RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        onPressed: _dataValidation,
+                        onPressed: _editUser,
                       ),
                     ),
                   ],
@@ -403,10 +394,10 @@ class _EditUsersState extends State<EditUsers> {
       setState(() {
         items = decode;
       });
-      for (var items in decode) {
-        if (items['ID'] == widget.itemsUsers) {
+      for (var i in decode) {
+        if (i['ID'] == widget.itemsUsers) {
           setState(() {
-            getItem = items;
+            getItem = i;
             name = getItem['name'];
             familyName = getItem['family_name'];
             mobile = getItem['mobile'];
@@ -452,24 +443,22 @@ class _EditUsersState extends State<EditUsers> {
   // }
 
 //==============================================================================
-  void _dataValidation() async {
-    if (name.isNotEmpty &&
-        familyName.isNotEmpty &&
-        address.isNotEmpty &&
-        birthDate.isNotEmpty &&
-        iDNo.isNotEmpty &&
-        mobile.isNotEmpty) {
-      _editUser();
-    } else {
-      _showSnackBarError(context);
-    }
-  }
-
+//   void _dataValidation() async {
+//     if (name.isNotEmpty &&
+//         familyName.isNotEmpty &&
+//         address.isNotEmpty &&
+//         birthDate.isNotEmpty &&
+//         iDNo.isNotEmpty &&
+//         mobile.isNotEmpty) {
+//       _editUser();
+//     } else {
+//       _showSnackBarError(context);
+//     }
+//   }
 //==============================================================================
   void _editUser() async {
     var dataUsers = [];
     for (var i in items) {
-      print(i);
       if (i["ID"] == getItem["ID"]) {
         setState(() {
           i = getItem;
@@ -491,18 +480,17 @@ class _EditUsersState extends State<EditUsers> {
   }
 
 //==============================================================================
-  void _showSnackBarError(BuildContext context) {
-    final snackBar = SnackBar(
-      content: Text('Text Field is empty, Please Fill All Data',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-          textAlign: TextAlign.center),
-      behavior: SnackBarBehavior.floating,
-      width: 300,
-      duration: Duration(seconds: 1),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
-
+//   void _showSnackBarError(BuildContext context) {
+//     final snackBar = SnackBar(
+//       content: Text('Text Field is empty, Please Fill All Data',
+//           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+//           textAlign: TextAlign.center),
+//       behavior: SnackBarBehavior.floating,
+//       width: 300,
+//       duration: Duration(seconds: 1),
+//     );
+//     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+//   }
 //==============================================================================
   void _showSnackBarSuccess(BuildContext context) {
     final snackBar = SnackBar(

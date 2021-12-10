@@ -17,9 +17,8 @@ class CheckUsers extends StatefulWidget {
 
 class _CheckUsersState extends State<CheckUsers> {
   var getItem;
-  List items=[];
+  List items = [];
   String image = '';
-
 
   @override
   void initState() {
@@ -32,6 +31,7 @@ class _CheckUsersState extends State<CheckUsers> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black,
+          automaticallyImplyLeading: false,
           title: Text(
             "Espad",
             style: GoogleFonts.pacifico(
@@ -40,7 +40,6 @@ class _CheckUsersState extends State<CheckUsers> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          automaticallyImplyLeading: false,
         ),
         body: ListView(
           children: [
@@ -66,7 +65,7 @@ class _CheckUsersState extends State<CheckUsers> {
                       width: 10,
                     ),
                     Container(
-                      child: Text("${getItem['name']}",
+                      child: Text(" ${getItem['name']}",
                           textAlign: TextAlign.start,
                           style: TextStyle(
                               fontWeight: FontWeight.bold) // has impact
@@ -371,21 +370,21 @@ class _CheckUsersState extends State<CheckUsers> {
                       SizedBox(
                         width: 50,
                       ),
-                   Container(
-                            width: 130,
-                            height: 180,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                border: Border.all(
-                                  width: 2,
-                                  color: Color.fromRGBO(87, 239, 221, 1),
-                                )),
-                            child: Image.memory(
-                              base64.decode(getItem['image']),
-                              fit: BoxFit.fill,
-                              height: 150,
-                              width: 120,
-                            )),
+                      Container(
+                          width: 130,
+                          height: 180,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(
+                                width: 2,
+                                color: Color.fromRGBO(87, 239, 221, 1),
+                              )),
+                          child: Image.memory(
+                            base64.decode(getItem['image']),
+                            fit: BoxFit.fill,
+                            height: 150,
+                            width: 120,
+                          )),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -407,7 +406,6 @@ class _CheckUsersState extends State<CheckUsers> {
                               onPressed: () {}),
                         ],
                       ),
-
                     ], //widget
                   ),
                 ),
@@ -450,7 +448,7 @@ class _CheckUsersState extends State<CheckUsers> {
                       ),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10))),
-                      onPressed:_createUser,
+                      onPressed: _createUser,
                     ),
                   ),
                 ],
@@ -462,6 +460,7 @@ class _CheckUsersState extends State<CheckUsers> {
           ],
         ));
   }
+
 //==============================================================================
   void _getItemUser() async {
     final prefs = await SharedPreferences.getInstance();
@@ -474,8 +473,6 @@ class _CheckUsersState extends State<CheckUsers> {
       });
       for (var items in decode) {
         if (items['ID'] == widget.itemsUsers) {
-          print("items");
-          print(items);
           setState(() {
             getItem = items;
           });
@@ -486,12 +483,11 @@ class _CheckUsersState extends State<CheckUsers> {
 
 //==============================================================================
   void _createUser() async {
-    var dataUsers=[];
-    for(var i in items){
-      print(i);
-      if(i["ID"]==getItem["ID"]){
+    var dataUsers = [];
+    for (var i in items) {
+      if (i["ID"] == getItem["ID"]) {
         setState(() {
-          i=getItem;
+          i = getItem;
         });
       }
       dataUsers.add(i);
@@ -501,12 +497,14 @@ class _CheckUsersState extends State<CheckUsers> {
     prefs.setString('dataUsers', encodeData.toString());
     _showSnackBarSuccess(context);
   }
+
 //==============================================================================
   void _users() async {
     await Navigator.push(context, MaterialPageRoute(builder: (context) {
       return Users();
     }));
   }
+
 //==============================================================================
   void _showSnackBarSuccess(BuildContext context) {
     final snackBar = SnackBar(
@@ -522,5 +520,4 @@ class _CheckUsersState extends State<CheckUsers> {
       this._users();
     });
   }
-
 }

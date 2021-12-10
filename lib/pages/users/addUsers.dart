@@ -40,6 +40,7 @@ class _AddUsersState extends State<AddUsers> {
       backgroundColor: Color.fromRGBO(241, 241, 241, 1),
       appBar: AppBar(
         backgroundColor: Colors.black,
+        automaticallyImplyLeading: false,
         title: Text(
           "Espad",
           style: GoogleFonts.pacifico(
@@ -47,11 +48,6 @@ class _AddUsersState extends State<AddUsers> {
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
-        ),
-        leading: IconButton(
-          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-          icon: Icon(Icons.arrow_back_ios, size: 30, color: Colors.black),
-          onPressed: _users,
         ),
       ),
       body: Center(
@@ -209,29 +205,25 @@ class _AddUsersState extends State<AddUsers> {
                     Text(
                       "Birth date :",
                       style: TextStyle(fontWeight: FontWeight.bold),
-
                     ),
-                    SizedBox(width: 65,),
+                    SizedBox(
+                      width: 65,
+                    ),
                     Flexible(
                         child: RaisedButton(
-                          // padding: EdgeInsets.fromLTRB(90, 15, 0, 0),
+                      // padding: EdgeInsets.fromLTRB(90, 15, 0, 0),
 
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10)),
-                            side:BorderSide(
-                                width: 1,
-                                color: Colors.black
-                            )
-
-                          ),
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          side: BorderSide(width: 1, color: Colors.black)),
                       onPressed: () {},
                       child: DateTimeField(
                           format: format,
                           onChanged: (value) {
                             birthDate = value.toString();
                           },
+                          textAlign: TextAlign.center,
                           onShowPicker: (context, currentValue) {
                             return showDatePicker(
                                 context: context,
@@ -239,8 +231,7 @@ class _AddUsersState extends State<AddUsers> {
                                 initialDate: currentValue ?? DateTime.now(),
                                 lastDate: DateTime(2100));
                           }),
-                    )
-                    ), //f
+                    )), //f
                   ], //widget
                 ),
               ),
@@ -429,7 +420,6 @@ class _AddUsersState extends State<AddUsers> {
 
 //==============================================================================
   void _dataValidation() async {
-
     if (name.isNotEmpty &&
         familyName.isNotEmpty &&
         address.isNotEmpty &&
@@ -450,7 +440,7 @@ class _AddUsersState extends State<AddUsers> {
       "name": name,
       "family_name": familyName,
       "address": address,
-      "birth_date": birthDate.substring(0,10),
+      "birth_date": birthDate.substring(0, 10),
       "mobile": mobile,
       "id_no": iDNo,
       "image": image,

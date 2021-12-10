@@ -28,15 +28,10 @@ class _UsersState extends State<Users> {
   List updateItems = [];
   String itemsUser = '';
   bool showBtn = false;
-  String logo=Images().logo;
+  String logo = Images().logo;
 
   @override
   void initState() {
-    if (items != []) {
-      setState(() {
-        showBtn = true;
-      });
-    }
     _getData();
     super.initState();
   }
@@ -114,7 +109,7 @@ class _UsersState extends State<Users> {
                               i['deleted'] = true;
                               deleted.add(i);
                             }
-                          }else{
+                          } else {
                             for (var i in items) {
                               i['deleted'] = false;
                               deleted.add(i);
@@ -152,12 +147,12 @@ class _UsersState extends State<Users> {
                               ),
                               ClipRRect(
                                   borderRadius: BorderRadius.circular(8.0),
-                                  child: Image.memory(base64.decode("${items[index]['image']}"),
-                                  fit: BoxFit.fill,
+                                  child: Image.memory(
+                                    base64.decode("${items[index]['image']}"),
+                                    fit: BoxFit.fill,
                                     height: 150,
                                     width: 120,
-                                  )
-                              ),
+                                  )),
                               SizedBox(
                                 width: 10,
                               ),
@@ -167,7 +162,8 @@ class _UsersState extends State<Users> {
                                   Container(
                                     padding: EdgeInsets.only(bottom: 10),
                                     width: 200,
-                                    child: Text("Name: ${items[index]['name']}",
+                                    child: Text(
+                                        "Name : ${items[index]['name']}",
                                         textAlign: TextAlign.start,
                                         style: TextStyle(
                                             fontWeight:
@@ -178,7 +174,7 @@ class _UsersState extends State<Users> {
                                     padding: EdgeInsets.only(bottom: 10),
                                     width: 200,
                                     child: Text(
-                                        "Family Name: ${items[index]['family_name']}",
+                                        "Family Name : ${items[index]['family_name']}",
                                         textAlign: TextAlign.start,
                                         style: TextStyle(
                                             fontWeight:
@@ -189,7 +185,7 @@ class _UsersState extends State<Users> {
                                     padding: EdgeInsets.only(bottom: 10),
                                     width: 200,
                                     child: Text(
-                                        "Birth date: ${items[index]['birth_date']}",
+                                        "Birth date : ${items[index]['birth_date']}",
                                         textAlign: TextAlign.start,
                                         style: TextStyle(
                                             fontWeight:
@@ -200,7 +196,7 @@ class _UsersState extends State<Users> {
                                     padding: EdgeInsets.only(bottom: 10),
                                     width: 200,
                                     child: Text(
-                                        "ID No: ${items[index]['id_no']}",
+                                        "ID No : ${items[index]['id_no']}",
                                         textAlign: TextAlign.start,
                                         style: TextStyle(
                                             fontWeight:
@@ -214,40 +210,30 @@ class _UsersState extends State<Users> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  IconButton(
-                                      iconSize: 26,
-                                      color: Colors.black,
-                                      icon: Icon(TablerIcons.edit),
-                                    onPressed: () {
-                                      setState(() {
-                                        itemsUser = items[index]["ID"];
-                                      });
-                                      _sendItemsToEditPage(context);
-                                    },)
-                                ],
+                              IconButton(
+                                iconSize: 22,
+                                color: Colors.black,
+                                icon: Icon(TablerIcons.pencil),
+                                onPressed: () {
+                                  setState(() {
+                                    itemsUser = items[index]["ID"];
+                                  });
+                                  _sendItemsToEditPage(context);
+                                },
                               ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    child: Checkbox(
-                                      value: items[index]['deleted'],
-                                      activeColor: Colors.blue,
-                                      checkColor: Colors.white,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          items[index]['deleted'] = value;
-                                          deleted.add(items[index]);
-                                        });
-                                      },
-                                    ),
-                                    padding: EdgeInsets.only(top: 8),
-                                  ),
-                                ],
-                              )
+                              Container(
+                                child: Checkbox(
+                                  value: items[index]['deleted'],
+                                  activeColor: Colors.blue,
+                                  checkColor: Colors.white,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      items[index]['deleted'] = value;
+                                      deleted.add(items[index]);
+                                    });
+                                  },
+                                ),
+                              ),
                             ],
                           ),
                           Row(
@@ -282,7 +268,7 @@ class _UsersState extends State<Users> {
                                 ],
                               )
                             ],
-                          )
+                          ),
                         ],
                       ));
                 },
@@ -308,6 +294,7 @@ class _UsersState extends State<Users> {
       return AddUsers();
     }));
   }
+
 //==============================================================================
   void _refreshApp() async {
     await Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -323,29 +310,35 @@ class _UsersState extends State<Users> {
     } else {
       results = items
           .where((user) =>
-          user["name"].toLowerCase().contains(value.toLowerCase()) ||
-          user["family_name"].toLowerCase().contains(value.toLowerCase()) ||
-          user["id_no"].toLowerCase().contains(value.toLowerCase())
-      ).toList();
+              user["name"].toLowerCase().contains(value.toLowerCase()) ||
+              user["family_name"].toLowerCase().contains(value.toLowerCase()) ||
+              user["id_no"].toLowerCase().contains(value.toLowerCase()))
+          .toList();
     }
     setState(() {
       items = results;
     });
   }
+
 //==============================================================================
   void _usersDelete() async {
     for (var i in deleted) {
       if (i['deleted'] == true) {
+        items.remove(i);
+        duplicateItems.remove(i);
+
         setState(() {
-          items.remove(i);
-          duplicateItems.remove(i);
-          if (items.isEmpty) {
-            showBtn = false;
-          }
+          items = duplicateItems;
         });
         String encodeData = jsonEncode(items);
         final prefs = await SharedPreferences.getInstance();
         prefs.setString('dataUsers', encodeData.toString());
+        this.usersSearch('');
+        editingController.clear();
+
+        if (items.isEmpty) {
+          showBtn = false;
+        }
       }
     }
   }
@@ -353,17 +346,13 @@ class _UsersState extends State<Users> {
 //==============================================================================
   void _getData() async {
     final pref = await SharedPreferences.getInstance();
-    pref.reload();
     final getData = pref.getString('dataUsers');
     if (getData != null) {
+      showBtn = true;
       var decode = jsonDecode(getData);
       setState(() {
         items = decode;
         duplicateItems = decode;
-      });
-    } else {
-      setState(() {
-        showBtn = false;
       });
     }
   }
@@ -379,6 +368,7 @@ class _UsersState extends State<Users> {
           ),
         ));
   }
+
 //==============================================================================
   void _sendItemsToEditPage(BuildContext context) {
     String textToSend = itemsUser;

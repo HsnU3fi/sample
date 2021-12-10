@@ -5,8 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:espad/images/images.dart';
 import 'package:espad/pages/users/users.dart';
-
-
 //==============================================================================
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
@@ -87,18 +85,13 @@ class _SplashState extends State<Splash> {
 //==============================================================================
   var _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
   Random _rnd = Random();
-
   String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
       length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 //==============================================================================
   void _createUserDefault() async {
-    print("img64");
 
     final preferences = await SharedPreferences.getInstance();
     await preferences.clear();
-
-
-
 
     Map data = {
       "ID":getRandomString(10),
@@ -106,7 +99,6 @@ class _SplashState extends State<Splash> {
       "family_name": "Stewart",
       "address": "manchester",
       "birth_date": "1991-01-13",
-
       "mobile": "09052233568",
       "id_no": "4980011111",
       "image":Images().black,
