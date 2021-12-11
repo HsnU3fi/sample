@@ -29,8 +29,6 @@ dependencies:
   shared_preferences: ^2.0.9
   image_picker: ^0.8.4+4
   datetime_picker_formfield: ^2.0.0
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
@@ -45,8 +43,8 @@ dev_dependencies:
 
 
 flutter:
-#  assets:
-#    - assets/images/
+  assets:
+    - web/icons/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

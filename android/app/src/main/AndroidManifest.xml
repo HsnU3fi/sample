@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.smapleespad">
+    package="com.example.espad">
    <application
-        android:label="smapleespad"
+        android:label="espad"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

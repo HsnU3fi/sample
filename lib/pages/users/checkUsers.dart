@@ -261,7 +261,7 @@ class _CheckUsersState extends State<CheckUsers> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      width: 150,
+                      width: 160,
                       padding: EdgeInsets.only(left: 30),
                       child: Text("Birth Date :",
                           textAlign: TextAlign.start,

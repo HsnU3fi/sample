@@ -143,9 +143,10 @@ class _EditUsersState extends State<EditUsers> {
                     Container(
                       child: Flexible(
                         child: Container(
-                          height: 60,
+                          height: 80,
                           padding: EdgeInsets.fromLTRB(80, 15, 0, 0),
                           child: TextField(
+                            maxLength: 11,
                             controller: TextEditingController(text: mobile),
                             onChanged: (value) {
                               mobile = value;
@@ -180,9 +181,10 @@ class _EditUsersState extends State<EditUsers> {
                     Container(
                       child: Flexible(
                         child: Container(
-                          height: 60,
+                          height: 80,
                           padding: EdgeInsets.fromLTRB(90, 15, 0, 0),
                           child: TextField(
+                            maxLength: 10,
                             controller: TextEditingController(text: iDNo),
                             keyboardType: TextInputType.number,
                             onChanged: (value) {

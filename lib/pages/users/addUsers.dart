@@ -137,12 +137,13 @@ class _AddUsersState extends State<AddUsers> {
                     Container(
                       child: Flexible(
                         child: Container(
-                          height: 60,
+                          height: 80,
                           padding: EdgeInsets.fromLTRB(80, 15, 0, 0),
                           child: TextField(
                             onChanged: (value) {
                               mobile = value;
                             },
+                            maxLength:11 ,
                             keyboardType: TextInputType.number,
                             textAlign: TextAlign.center,
                             decoration: InputDecoration(
@@ -173,13 +174,14 @@ class _AddUsersState extends State<AddUsers> {
                     Container(
                       child: Flexible(
                         child: Container(
-                          height: 60,
+                          height: 80,
                           padding: EdgeInsets.fromLTRB(90, 15, 0, 0),
                           child: TextField(
                             keyboardType: TextInputType.number,
                             onChanged: (value) {
                               iDNo = value;
                             },
+                            maxLength:10,
                             textAlign: TextAlign.center,
                             decoration: InputDecoration(
                               fillColor: Colors.white,
