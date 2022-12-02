@@ -1,4 +1,4 @@
-# smapleespad
+# smaple
 
 A new Flutter project.
 
